@@ -10,7 +10,7 @@ export default function Header() {
         <Link href="/">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo.png"
+              src="/logo.png.png"
               alt="Decision Gap Engine"
               width={140}
               height={40}

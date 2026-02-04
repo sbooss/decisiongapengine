@@ -11,7 +11,7 @@ function dailyLimit(plan: string) {
 }
 
 export async function POST(req: Request) {
-  const { text, userId } = await req.json();
+  const { userId } = await req.json();
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
