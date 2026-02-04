@@ -1,0 +1,30 @@
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  plan      Plan     @default(EXECUTIVE)
+  createdAt DateTime @default(now())
+
+  usages    Usage[]
+}
+
+model Usage {
+  id        String   @id @default(uuid())
+  userId    String
+  date      DateTime @default(now())
+  count     Int
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum Plan {
+  INDIVIDUAL
+  EXECUTIVE
+  COMPANY
+}
+model DecisionLog {
+  id        String   @id @default(uuid())
+  userId    String
+  category  String
+  content   String
+  createdAt DateTime @default(now())
+}
