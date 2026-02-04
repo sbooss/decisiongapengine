@@ -2,11 +2,6 @@
 
 import { useEffect, useState } from 'react'
 
-type DriftState = {
-  label: string
-  description: string
-}
-
 const STATES = [
   {
     label: 'No decision registered',

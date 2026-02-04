@@ -1,33 +1,32 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function Core() {
-  const [echo, setEcho] = useState<string | null>(null)
+  const [echo] = useState<string | null>(() => {
+    if (typeof window === 'undefined') {
+      return null
+    }
 
-  useEffect(() => {
     const lastVisit = localStorage.getItem('decision_timestamp')
     const now = Date.now()
 
     if (!lastVisit) {
       localStorage.setItem('decision_timestamp', String(now))
-      setEcho(null)
-      return
+      return null
     }
 
     const diff = now - Number(lastVisit)
 
-    if (diff > 1000 * 60 * 60 * 6) {
-      setEcho(
-        'The system recalculated secondary outcomes.\nYour decision is no longer isolated.'
-      )
+    if (diff > 1000 * 60 * 60 * 24) {
+      return 'Long-term effects detected.\nReversibility is no longer guaranteed.'
     }
 
-    if (diff > 1000 * 60 * 60 * 24) {
-      setEcho(
-        'Long-term effects detected.\nReversibility is no longer guaranteed.'
-      )
+    if (diff > 1000 * 60 * 60 * 6) {
+      return 'The system recalculated secondary outcomes.\nYour decision is no longer isolated.'
     }
-  }, [])
+
+    return null
+  })
 
   return (
     <main style={container}>
@@ -139,4 +138,3 @@ const silenceText = {
   fontSize: 12,
   letterSpacing: 1,
 }
-

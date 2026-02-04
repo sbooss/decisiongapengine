@@ -7,16 +7,6 @@ export default function ResultPage() {
   const router = useRouter()
 
   const unlocked = searchParams.get('unlocked') === 'true'
-{unlocked && (
-  <div className="mt-16">
-    <a
-      href="/api/pdf"
-      className="inline-block px-8 py-4 bg-white text-black rounded-md text-sm font-medium"
-    >
-      Download Executive PDF
-    </a>
-  </div>
-)}
 
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100 px-8 py-24">
@@ -53,6 +43,17 @@ export default function ResultPage() {
             </div>
           )}
         </section>
+
+        {unlocked && (
+          <div className="mt-16">
+            <a
+              href="/api/pdf"
+              className="inline-block px-8 py-4 bg-white text-black rounded-md text-sm font-medium"
+            >
+              Download Executive PDF
+            </a>
+          </div>
+        )}
 
         {/* BLOQUEIO */}
         {!unlocked && (

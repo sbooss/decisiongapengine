@@ -18,9 +18,13 @@ export async function POST(req: Request) {
     );
 
     if (event.type === "checkout.session.completed") {
-      const session: any = event.data.object;
-      const userId = session.metadata.userId;
-      const plan = session.metadata.plan;
+      const session = event.data.object as Stripe.Checkout.Session;
+      const userId = session.metadata?.userId;
+      const plan = session.metadata?.plan;
+
+      if (!userId || !plan) {
+        return NextResponse.json({ error: "Missing metadata" }, { status: 400 });
+      }
 
       await prisma.user.update({
         where: { id: userId },

@@ -1,8 +1,16 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Transition() {
+  const [particles] = useState(() =>
+    Array.from({ length: 300 }).map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      animationDelay: `${Math.random() * 1.5}s`
+    }))
+  )
+
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = '/core'
@@ -19,17 +27,11 @@ export default function Transition() {
         ))}
       </div>
 
-    <div className="particles">
-  {Array.from({ length: 300 }).map((_, i) => {
-    const style = {
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-      animationDelay: `${Math.random() * 1.5}s`
-    }
-
-    return <span key={i} className="particle" style={style} />
-  })}
-</div>
+      <div className="particles">
+        {particles.map((style, i) => (
+          <span key={i} className="particle" style={style} />
+        ))}
+      </div>
 
 
       <div className="center-text">
